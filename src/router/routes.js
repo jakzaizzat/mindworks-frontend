@@ -7,7 +7,7 @@ import Post from "../pages/Post";
 const Routes = () => {
   return (
     <Switch>
-      <Route path="/post" component={Post} />
+      <Route path="/:id" component={Post} />
       <Route path="/" component={Home} />
     </Switch>
   );

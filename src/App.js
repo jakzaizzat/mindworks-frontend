@@ -6,7 +6,7 @@ import "./assets/output.css";
 
 function App() {
   return (
-    <div className="bg-blue-500">
+    <div className="antialiased min-h-screen">
       <BrowserRouter>
         <Routes />
       </BrowserRouter>
