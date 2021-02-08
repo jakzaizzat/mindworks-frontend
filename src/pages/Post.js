@@ -21,9 +21,9 @@ const Post = () => {
     if (!keyword) return comments;
     return comments.filter(
       ({ body, email, name }) =>
-        name.includes(keyword) ||
-        email.includes(keyword) ||
-        body.includes(keyword)
+        name.toLowerCase().includes(keyword.toLowerCase()) ||
+        email.toLowerCase().includes(keyword.toLowerCase()) ||
+        body.toLowerCase().includes(keyword.toLowerCase())
     );
   }
 
