@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Comments from "../components/Comments";
-import Search from "../components/Search";
 
 import { getPost } from "../api/posts";
 import { getComments } from "../api/comments";
@@ -11,21 +10,6 @@ const Post = () => {
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [keyword, setKeyword] = useState(null);
-
-  function handleChange(e) {
-    setKeyword(e.target.value);
-  }
-
-  function filteredComments(comments, keyword) {
-    if (!keyword) return comments;
-    return comments.filter(
-      ({ body, email, name }) =>
-        name.toLowerCase().includes(keyword.toLowerCase()) ||
-        email.toLowerCase().includes(keyword.toLowerCase()) ||
-        body.toLowerCase().includes(keyword.toLowerCase())
-    );
-  }
 
   useEffect(() => {
     setIsLoading(true);
@@ -57,9 +41,7 @@ const Post = () => {
           <h1 className="capitalize font-black text-2xl mb-8">{post.title}</h1>
           <p className="text-gray-800 leading-7 mb-16">{post.body}</p>
 
-          <Search handleChange={handleChange} />
-
-          <Comments comments={filteredComments(comments, keyword)} />
+          <Comments comments={comments} />
         </>
       ) : (
         <div>
