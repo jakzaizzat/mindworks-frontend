@@ -1,25 +1,43 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import Comments from "../components/Comments";
 import Search from "../components/Search";
 
+import { getPost } from "../api/posts";
+import { getComments } from "../api/comments";
+
 const Post = () => {
   let { id } = useParams();
-  const text =
-    "quia et suscipit\nsuscipit recusandae consequuntur expedita etcum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autemsunt rem eveniet architecto";
+  const [post, setPost] = useState(null);
+  const [comments, setComments] = useState([]);
 
-  const parseText = text.replace(/(?:\r\n|\r|\n)/g, " <br/> ");
+  useEffect(() => {
+    getPost(id)
+      .then((response) => {
+        setPost(response);
+        return getComments(id);
+      })
+      .then((response) => {
+        setComments(response);
+      });
+  }, []);
+
+  if (!post) return <div>Loading post..</div>;
+  if (!comments) return <div>Loading comments..</div>;
+
   return (
     <div className="container">
-      <h1 className="capitalize font-black text-2xl mb-8">
-        sunt aut facere repellat provident occaecati excepturi optio
-        reprehenderit {id}
-      </h1>
-      <p className="text-gray-800 leading-7 mb-16">{parseText}</p>
+      <div className="py-4">
+        <Link to="/" className="text-blue-500 hover:text-blue-800">
+          Blog
+        </Link>{" "}
+        <span className="mx-2">></span> <span>{post.title}</span>
+      </div>
 
+      <h1 className="capitalize font-black text-2xl mb-8">{post.title}</h1>
+      <p className="text-gray-800 leading-7 mb-16">{post.body}</p>
       <Search />
-
-      <Comments />
+      <Comments comments={comments} />
     </div>
   );
 };
