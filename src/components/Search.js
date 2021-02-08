@@ -1,6 +1,6 @@
 import React from "react";
 
-const Search = () => {
+const Search = ({ handleChange }) => {
   return (
     <div className="border border-gray-300 rounded-md flex items-center px-3">
       <svg
@@ -17,7 +17,10 @@ const Search = () => {
           d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
         ></path>
       </svg>
-      <input className="appearance-none block w-full px-3 py-2 placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+      <input
+        className="appearance-none block w-full px-3 py-2 placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+        onChange={handleChange}
+      />
     </div>
   );
 };
